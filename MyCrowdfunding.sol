@@ -202,8 +202,10 @@ contract Crowdfunding is Ownable(msg.sender), ReentrancyGuard {
             counter,
             msg.sender,
             _projectTitle,
+            _projectDescription,
+            _projectParticipationAmount,
             _fundingGoal,
-            projectDeadline
+            block.timestamp + (_durationInDays * 1 days)
         );
     }
 
@@ -288,14 +290,14 @@ contract Crowdfunding is Ownable(msg.sender), ReentrancyGuard {
         view
         onlyOwner
         projectExists(_projectID)
-        returns (uint256 Contribution)
+        returns (uint256 UserContribution)
     {
         return (contributions[_address][_projectID]);
     }
 
     function retrieveMyContributions(
         uint256 _projectID
-    ) public view projectExists(_projectID) returns (uint256 Contribution) {
+    ) public view projectExists(_projectID) returns (uint256 UserContribution) {
         return (contributions[msg.sender][_projectID]);
     }
 
